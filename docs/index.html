@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora Mercado Livre e Shopee 2026: preço e margem | Venda no Azul</title>
+<meta name="description" content="Calcule o preço mínimo e o preço com margem no Mercado Livre (Clássico e Premium) e na Shopee com as tarifas oficiais de 2026, o imposto do MEI ou do Simples e o cenário da CBS em 2027. Planilha de precificação grátis, sem cadastro.">
+<link rel="canonical" href="https://outils.vread.fr/venda-no-azul/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Venda no Azul">
+<meta property="og:title" content="Calculadora de preço para Mercado Livre e Shopee (tarifas de 2026)">
+<meta property="og:description" content="Preço mínimo, preço com margem e lucro por venda no ML Clássico, ML Premium e Shopee. Tarifas oficiais lidas em 13/10/2026. Planilha grátis.">
+<meta property="og:url" content="https://outils.vread.fr/venda-no-azul/">
+<meta property="og:image" content="https://outils.vread.fr/venda-no-azul/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#12213a">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Venda no Azul: calculadora de preço para Mercado Livre e Shopee",
+      "url": "https://outils.vread.fr/venda-no-azul/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "pt-BR",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+      "provider": { "@type": "Organization", "name": "READ FRANCE SAS", "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" }, "email": "octave@vread.fr" },
+      "dateModified": "2026-10-13"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Qual é a taxa do Mercado Livre em 2026?", "acceptedAnswer": { "@type": "Answer", "text": "Segundo a página oficial \"Quanto custa vender um produto?\", a tarifa de venda fica entre 10% e 14% no anúncio Clássico e entre 15% e 19% no Premium, conforme a categoria. Além dela, o vendedor paga o custo dos Envios no Mercado Livre, que se aplica a todas as vendas e depende do peso e da faixa de preço (a partir de R$ 5,65 para até 0,3 kg na tabela de reputação verde lida em 13/10/2026)." } },
+        { "@type": "Question", "name": "O Mercado Livre ainda cobra custo fixo por venda abaixo de R$ 79?", "acceptedAnswer": { "@type": "Answer", "text": "Nas páginas de ajuda do Mercado Livre lidas em 13/10/2026 não aparece um custo fixo separado. Abaixo de R$ 79 o vendedor paga o custo de envio da tabela oficial: para até 0,3 kg, R$ 5,65 abaixo de R$ 19 (no máximo metade do preço), R$ 6,85 de R$ 19 a R$ 48,99 e R$ 8,15 de R$ 49 a R$ 78,99." } },
+        { "@type": "Question", "name": "Qual é a taxa da Shopee em 2026?", "acceptedAnswer": { "@type": "Answer", "text": "Desde 01/10/2026, para lojas CNPJ: 20% + R$ 4,50 por item até R$ 79,99; 14% + R$ 16 de R$ 80 a R$ 99,99; 14% + R$ 20 de R$ 100 a R$ 199,99; 14% + R$ 26 a partir de R$ 200. Lojas CPF com mais de 450 pedidos em 90 dias pagam mais R$ 3 por item. A comissão já inclui a taxa de transação." } },
+        { "@type": "Question", "name": "Como calcular o preço de venda com margem no Mercado Livre?", "acceptedAnswer": { "@type": "Answer", "text": "Some o custo do produto, a embalagem e o custo de envio da faixa de preço e divida por (1 menos a tarifa de venda, menos a alíquota do imposto, menos a margem desejada). Exemplo: custo R$ 30, embalagem R$ 2, envio R$ 8,25, tarifa 14%, imposto 4% e margem 15%: 40,25 ÷ 0,67 = R$ 60,08. Confira se o resultado ficou dentro da faixa de preço usada para o envio; a calculadora faz isso para todas as faixas." } },
+        { "@type": "Question", "name": "A planilha de precificação é grátis?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. O botão Baixar planilha gera um arquivo .xlsx no seu aparelho, sem cadastro e sem e-mail. As fórmulas recalculam o preço quando você muda o custo e funcionam no Excel, no Google Planilhas e no LibreOffice." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#calculadora">Ir para a calculadora</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Venda no Azul, início">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 15.2 15.2 3H27a2 2 0 0 1 2 2v11.8L16.8 29a2 2 0 0 1-2.8 0L3 18a2 2 0 0 1 0-2.8Z" fill="#0b57d0"/><circle cx="22.5" cy="9.5" r="2.4" fill="#ffd84d"/><path d="m10 17 4 4 7-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Venda no Azul
+    </a>
+    <nav aria-label="Seções">
+      <a href="#calculadora">Calculadora</a>
+      <a class="opt" href="#tarifas-2026">Tarifas 2026</a>
+      <a class="opt" href="#cbs-2027">CBS 2027</a>
+      <a href="#lista-ia">Lista IA</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap hero">
+  <span class="kicker">Tarifas oficiais lidas em 13/10/2026</span>
+  <h1>Calculadora de preço para Mercado Livre e Shopee (tarifas de 2026)</h1>
+  <p class="lead">Coloque o custo do produto e veja o preço mínimo, o preço que garante a sua margem e o lucro por venda no ML Clássico, no ML Premium e na Shopee. Já entra a comissão da Shopee de 1º de outubro (R$ 4,50 por item até R$ 79,99) e o custo de envio do Mercado Livre por peso. Grátis, sem cadastro.</p>
+</div>
+
+<div class="wrap calc" id="calculadora">
+  <form id="f" class="inputs" novalidate autocomplete="off" onsubmit="return false">
+    <fieldset class="card">
+      <legend>1. Produto</legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="cost">Custo do produto</label>
+          <div class="box"><span>R$</span><input id="cost" name="cost" inputmode="decimal" value="30,00" data-testid="cost"></div>
+        </div>
+        <div class="field">
+          <label for="extra">Embalagem e outros</label>
+          <div class="box"><span>R$</span><input id="extra" name="extra" inputmode="decimal" value="2,00" data-testid="extra"></div>
+          <span class="hint">Caixa, etiqueta, frete até a agência.</span>
+        </div>
+        <div class="field full">
+          <label for="weightIdx">Peso da embalagem</label>
+          <select class="plain" id="weightIdx" name="weightIdx" data-testid="weight"></select>
+          <span class="hint">O maior entre o peso real e o volumétrico (C × L × A em cm ÷ 4.000).</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>2. Mercado Livre</legend>
+      <p class="legend-note">Clássico: 10% a 14%. Premium: 15% a 19%. O percentual exato da sua categoria aparece em <a href="https://www.mercadolivre.com.br/landing/custos-de-venda/tarifas-de-venda" target="_blank" rel="noopener">Tarifas de venda</a> (com login). Sem saber, deixe o teto.</p>
+      <div class="grid2">
+        <div class="field">
+          <label for="mlClassicoPct">Tarifa Clássico</label>
+          <div class="box"><input id="mlClassicoPct" name="mlClassicoPct" inputmode="decimal" value="14" data-testid="mlClassicoPct"><span>%</span></div>
+        </div>
+        <div class="field">
+          <label for="mlPremiumPct">Tarifa Premium</label>
+          <div class="box"><input id="mlPremiumPct" name="mlPremiumPct" inputmode="decimal" value="19" data-testid="mlPremiumPct"><span>%</span></div>
+        </div>
+        <div class="field full">
+          <span class="lab" id="lab-ship">Custo de envio no ML</span>
+          <div class="seg" role="radiogroup" aria-labelledby="lab-ship">
+            <label><input type="radio" name="mlShipMode" value="auto" checked><span>Tabela oficial</span></label>
+            <label><input type="radio" name="mlShipMode" value="manual"><span>Outro valor</span></label>
+          </div>
+          <span class="hint" id="shipHint">Reputação verde ou sem reputação, produto novo. Muda com o preço: a calculadora testa todas as faixas.</span>
+        </div>
+        <div class="field full hidden" id="mlShipManualWrap">
+          <label for="mlShipManual">Custo de envio por venda</label>
+          <div class="box"><span>R$</span><input id="mlShipManual" name="mlShipManual" inputmode="decimal" value="0,00"></div>
+          <span class="hint">Use para Flex, reputação amarela ou laranja, ou categorias especiais.</span>
+        </div>
+        <div class="field full">
+          <label for="mlDiscountPp">Desconto na tarifa entre R$ 150 e R$ 700</label>
+          <select class="plain" id="mlDiscountPp" name="mlDiscountPp">
+            <option value="0" selected>Nenhum (padrão)</option>
+            <option value="1">1 ponto percentual</option><option value="2">2 pontos</option><option value="3">3 pontos</option><option value="4">4 pontos</option><option value="5">5 pontos</option>
+          </select>
+          <span class="hint">Só para <a href="https://www.mercadolivre.com.br/ajuda/51251" target="_blank" rel="noopener">categorias selecionadas</a> que entram em "Menos tarifas de venda".</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>3. Shopee</legend>
+      <div class="grid2">
+        <div class="field full">
+          <span class="lab" id="lab-seller">Tipo de loja</span>
+          <div class="seg" role="radiogroup" aria-labelledby="lab-seller">
+            <label><input type="radio" name="shopeeSeller" value="cnpj" checked><span>CNPJ</span></label>
+            <label><input type="radio" name="shopeeSeller" value="cpf"><span>CPF</span></label>
+          </div>
+        </div>
+        <label class="check full hidden" id="cpfWrap"><input type="checkbox" id="shopeeCpfOver450" name="shopeeCpfOver450"> Mais de 450 pedidos nos últimos 90 dias (+ R$ 3 por item)</label>
+        <div class="field full">
+          <label for="shopeeShip">Frete pago por você na Shopee</label>
+          <div class="box"><span>R$</span><input id="shopeeShip" name="shopeeShip" inputmode="decimal" value="0,00"></div>
+          <span class="hint">No Programa de Frete Grátis a Shopee banca os cupons (até R$ 20, R$ 30 ou R$ 40 conforme o preço). Deixe 0 se não paga frete à parte.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>4. Imposto</legend>
+      <div class="field">
+        <div class="seg" role="radiogroup" aria-label="Regime tributário">
+          <label><input type="radio" name="regime" value="mei"><span>MEI</span></label>
+          <label><input type="radio" name="regime" value="simples" checked><span>Simples Nacional</span></label>
+          <label><input type="radio" name="regime" value="outro"><span>Outro</span></label>
+        </div>
+      </div>
+      <div id="reg-mei" class="grid2 hidden">
+        <div class="field">
+          <label for="meiDas">DAS mensal</label>
+          <div class="box"><span>R$</span><input id="meiDas" name="meiDas" inputmode="decimal" value="82,05"></div>
+          <span class="hint">Comércio e indústria em 2026. Com serviços, some R$ 5 de ISS.</span>
+        </div>
+        <div class="field">
+          <label for="meiUnits">Vendas por mês</label>
+          <div class="box"><input id="meiUnits" name="meiUnits" inputmode="numeric" value="50"><span>vendas</span></div>
+          <span class="hint">O DAS é dividido entre elas.</span>
+        </div>
+      </div>
+      <div id="reg-simples">
+        <div class="field">
+          <label for="rbt12">Faturamento dos últimos 12 meses (RBT12)</label>
+          <div class="box"><span>R$</span><input id="rbt12" name="rbt12" inputmode="decimal" value="120.000,00" data-testid="rbt12"></div>
+        </div>
+        <p class="derived" id="simplesOut" aria-live="polite"></p>
+        <label class="check"><input type="checkbox" id="simplesManual"> Prefiro informar a alíquota que pago</label>
+        <div class="field hidden" id="simplesPctWrap">
+          <label for="simplesPct">Alíquota efetiva</label>
+          <div class="box"><input id="simplesPct" name="simplesPct" inputmode="decimal" value="4"><span>%</span></div>
+        </div>
+      </div>
+      <div id="reg-outro" class="grid2 hidden">
+        <div class="field">
+          <label for="outroPct">Impostos sobre o preço</label>
+          <div class="box"><input id="outroPct" name="outroPct" inputmode="decimal" value="12"><span>%</span></div>
+          <span class="hint">Lucro presumido ou real: some o que incide sobre a venda.</span>
+        </div>
+        <div class="field">
+          <label for="outroPisCofins">Desse total, PIS e Cofins</label>
+          <div class="box"><input id="outroPisCofins" name="outroPisCofins" inputmode="decimal" value="3,65"><span>%</span></div>
+          <span class="hint">Usado só no cenário 2027.</span>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" id="scenario2027" name="scenario2027" data-testid="scenario2027"> Simular 2027 com CBS e IBS (reforma tributária)</label>
+      <div id="s2027" class="hidden">
+        <div id="s2027-simples" class="field">
+          <div class="seg" role="radiogroup" aria-label="Como recolher IBS e CBS no Simples">
+            <label><input type="radio" name="simples2027" value="dentro" checked><span>Tudo no DAS</span></label>
+            <label><input type="radio" name="simples2027" value="fora"><span>IBS/CBS por fora</span></label>
+          </div>
+        </div>
+        <div class="grid2" id="s2027-rates">
+          <div class="field">
+            <label for="cbsPct">CBS em 2027 (hipótese)</label>
+            <div class="box"><input id="cbsPct" name="cbsPct" inputmode="decimal" value="8,7"><span>%</span></div>
+            <span class="hint">O Senado ainda não fixou a alíquota (LC 214, arts. 347 e 349). Troque quando sair.</span>
+          </div>
+          <div class="field">
+            <label for="creditShare">Parte do custo com crédito</label>
+            <div class="box"><input id="creditShare" name="creditShare" inputmode="decimal" value="0"><span>%</span></div>
+            <span class="hint">Se o fornecedor destaca CBS/IBS na nota.</span>
+          </div>
+        </div>
+        <p class="derived" id="s2027Out"></p>
+      </div>
+    </fieldset>
+
+    <fieldset class="card">
+      <legend>5. Margem</legend>
+      <div class="grid2">
+        <div class="field">
+          <label for="targetMargin">Margem líquida desejada</label>
+          <div class="box"><input id="targetMargin" name="targetMargin" inputmode="decimal" value="15" data-testid="margin"><span>% do preço</span></div>
+        </div>
+        <div class="field">
+          <label for="currentPrice">Seu preço hoje (opcional)</label>
+          <div class="box"><span>R$</span><input id="currentPrice" name="currentPrice" inputmode="decimal" value="" placeholder="ex.: 59,90" data-testid="currentPrice"></div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+  <aside class="results card" id="resultado" aria-live="polite" data-testid="results">
+    <h2 id="resTitle">Preço para lucrar 15% sobre a venda</h2>
+    <p class="res-sub">Depois de tarifas, envio, imposto e custo. Por unidade.</p>
+    <div class="prices" id="prices"></div>
+    <div class="table-wrap"><table id="cmp" aria-label="Comparação por canal"></table></div>
+    <div id="currentBlock" class="hidden">
+      <h3 style="margin:16px 0 4px;font-size:1rem">No seu preço de hoje</h3>
+      <div class="table-wrap" style="margin-top:4px"><table id="cmpNow" aria-label="Lucro no preço atual"></table></div>
+    </div>
+    <p class="taxline" id="taxline"></p>
+    <div class="actions">
+      <button type="button" class="btn primary full" id="dlXlsx" data-testid="dl-xlsx"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Baixar planilha (.xlsx)</button>
+      <button type="button" class="btn" id="dlCsv" data-testid="dl-csv">Baixar CSV</button>
+      <button type="button" class="btn" id="copy" data-testid="copy">Copiar resultado</button>
+      <a class="btn wa full" id="wa" href="#" target="_blank" rel="noopener" data-testid="whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>Mandar no WhatsApp</a>
+    </div>
+    <p class="toast" id="toast" role="status"></p>
+  </aside>
+</div>
+
+<section class="block" id="o-que-entra">
+  <div class="wrap split">
+    <div class="prose">
+      <h2>O que entra na conta</h2>
+      <p>Para cada canal, a calculadora soma o custo do produto, a embalagem, a tarifa de venda, o valor fixo por item (Shopee), o custo de envio cobrado do vendedor (Mercado Livre) e o imposto do seu regime. Depois procura o <strong>menor preço</strong> em que sobra a margem pedida.</p>
+      <p>O detalhe que mais confunde: as tarifas mudam por faixa de preço. No Mercado Livre, passar de R$ 78,99 para R$ 79 troca o frete grátis padrão pelo frete grátis rápido, e o envio de um pacote de até 0,3 kg sobe de R$ 8,15 para R$ 12,95. Na Shopee, a comissão cai de 20% para 14% em R$ 80, mas o fixo sobe de R$ 4,50 para R$ 16. Por isso a conta é feita faixa por faixa, e o preço que aparece já respeita a faixa em que ele cai.</p>
+      <p>A planilha que você baixa traz as mesmas fórmulas: mude o custo ou a margem e os preços recalculam no Excel, no Google Planilhas ou no LibreOffice.</p>
+    </div>
+    <div class="limits">
+      <strong>O que fica de fora</strong>
+      <ul>
+        <li>Mercado Livre Full (armazenagem), Envios Flex e reputação amarela ou vermelha. Para esses casos, use "Outro valor" no envio.</li>
+        <li>Publicidade (Mercado Ads, Shopee Ads), cupons, campanhas e devoluções.</li>
+        <li>Subsídio Pix da Shopee: pela regra publicada, você recebe o mesmo valor por item.</li>
+        <li>Lojas CPF da Shopee abaixo de R$ 12: a Shopee diz que a taxa é regressiva, mas não publica os valores. Usamos a regra padrão.</li>
+        <li>ICMS-ST e DIFAL de quem está fora do Simples.</li>
+      </ul>
+      <p class="src">É uma calculadora, não consultoria tributária. Confira a sua alíquota com o seu contador.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="tarifas-2026">
+  <div class="wrap prose">
+    <h2>Quanto o Mercado Livre e a Shopee cobram em 2026</h2>
+    <p class="meta">Atualizado em 13/10/2026 a partir das páginas oficiais citadas abaixo.</p>
+    <p>No Mercado Livre você paga de 10% a 14% de tarifa no anúncio Clássico ou de 15% a 19% no Premium, mais o custo de envio, que vale para todas as vendas. Na Shopee, a comissão é de 20% + R$ 4,50 por item até R$ 79,99 e de 14% + um fixo de R$ 16 a R$ 26 acima disso.</p>
+
+    <h3>Tarifa de venda e custo de envio no Mercado Livre</h3>
+    <p>A página <a href="https://www.mercadolivre.com.br/ajuda/870" target="_blank" rel="noopener">"Quanto custa vender um produto?"</a> traz a faixa por tipo de anúncio. O percentual exato depende da categoria. Produtos de categorias selecionadas entre R$ 150 e R$ 700 têm redução de 1 a 5 pontos percentuais.</p>
+    <p>Para produto barato, o que mais pesa é o envio. A <a href="https://www.mercadolivre.com.br/ajuda/40538" target="_blank" rel="noopener">tabela de custos dos Envios</a> diz que o custo "se aplica a todas as vendas, mesmo que o comprador pague pelo envio". Nas páginas de ajuda que lemos não aparece mais um custo fixo separado por venda: abaixo de R$ 79, quem vende paga esse custo de envio, e abaixo de R$ 19 ele fica limitado à metade do preço.</p>
+    <div class="table-wrap">
+      <table>
+        <caption class="src" style="caption-side:bottom;text-align:left;padding-top:6px">Trecho da tabela para reputação verde ou sem reputação. A tabela completa (30 faixas de peso) está na aba Tarifas da planilha.</caption>
+        <thead><tr><th>Peso</th><th>até R$ 18,99</th><th>R$ 19 a 48,99</th><th>R$ 49 a 78,99</th><th>R$ 79 a 99,99</th><th>R$ 100 a 119,99</th><th>R$ 200 ou mais</th></tr></thead>
+        <tbody>
+          <tr><td>Até 0,3 kg</td><td>R$ 5,65</td><td>R$ 6,85</td><td>R$ 8,15</td><td>R$ 12,95</td><td>R$ 14,95</td><td>R$ 21,65</td></tr>
+          <tr><td>0,3 a 0,5 kg</td><td>R$ 5,95</td><td>R$ 6,95</td><td>R$ 8,25</td><td>R$ 13,85</td><td>R$ 16,15</td><td>R$ 23,25</td></tr>
+          <tr><td>0,5 a 1 kg</td><td>R$ 6,05</td><td>R$ 7,15</td><td>R$ 8,45</td><td>R$ 14,45</td><td>R$ 16,85</td><td>R$ 24,45</td></tr>
+          <tr><td>1 a 1,5 kg</td><td>R$ 6,15</td><td>R$ 7,35</td><td>R$ 8,65</td><td>R$ 14,75</td><td>R$ 17,15</td><td>R$ 25,45</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Comissão da Shopee por faixa de preço desde 1º de outubro</h3>
+    <p>A <a href="https://seller.shopee.com.br/edu/article/26839" target="_blank" rel="noopener">Política de Comissão</a> (última atualização em 01/10/2026) subiu o fixo dos itens até R$ 79,99 de R$ 4,00 para R$ 4,50. Os percentuais não mudaram. Segundo a Shopee, a comissão "já contempla a taxa de transação".</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Preço do item</th><th>Loja CNPJ</th><th>Loja CPF, mais de 450 pedidos em 90 dias</th></tr></thead>
+        <tbody>
+          <tr><td>Até R$ 79,99</td><td>20% + R$ 4,50</td><td>20% + R$ 7,50</td></tr>
+          <tr><td>R$ 80 a 99,99</td><td>14% + R$ 16</td><td>14% + R$ 19</td></tr>
+          <tr><td>R$ 100 a 199,99</td><td>14% + R$ 20</td><td>14% + R$ 23</td></tr>
+          <tr><td>R$ 200 ou mais</td><td>14% + R$ 26</td><td>14% + R$ 29</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="src">Loja CNPJ com item abaixo de R$ 9: o fixo vira metade do preço. Loja CPF com até 450 pedidos em 90 dias paga só a coluna CNPJ.</p>
+
+    <h3>Um exemplo feito à mão</h3>
+    <p>Produto de R$ 30 com R$ 2 de embalagem, pacote de 0,4 kg, Simples Nacional na faixa 1 (4%) e margem de 15%:</p>
+    <p class="formula">ML Clássico 14%: (30 + 2 + 8,25) ÷ (1 − 0,14 − 0,04 − 0,15) = R$ 60,08</p>
+    <p class="formula">Shopee CNPJ: (30 + 2 + 4,50) ÷ (1 − 0,20 − 0,04 − 0,15) = R$ 59,84</p>
+    <p>O preço do Mercado Livre caiu na faixa de R$ 49 a R$ 78,99, por isso o envio é de R$ 8,25. Se passasse de R$ 79, o envio iria para R$ 13,85 e a conta mudaria. É esse teste de faixas que a calculadora faz por você. Os mesmos casos rodam nos testes automáticos do site a cada atualização das tabelas.</p>
+  </div>
+</section>
+
+<section class="block" id="cbs-2027">
+  <div class="wrap prose">
+    <h2>O que a CBS muda no seu preço em 2027</h2>
+    <p>Em 2027 a CBS substitui o PIS e a Cofins, e o IBS começa com 0,1% (0,05% estadual e 0,05% municipal, <a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm" target="_blank" rel="noopener">LC 214/2025</a>, art. 344). Para quem está no Simples Nacional e continua pagando tudo pelo DAS, a alíquota do Anexo I fica igual nas faixas 1 a 5: só muda o destino de uma parte do DAS. A faixa 6 cai de 19% para 18,90%. O MEI continua com DAS fixo.</p>
+    <p>Quem optar por recolher IBS e CBS por fora paga um DAS menor (sem a fatia de CBS e IBS, 15,5% do DAS nas faixas 1 a 5) e passa a destacar os dois tributos na nota, com crédito sobre compras de fornecedores que também destacam. A alíquota da CBS de 2027 será a de referência fixada pelo Senado menos 0,1 ponto (art. 347). Ela ainda não foi publicada: a calculadora usa 8,7% como hipótese, e o campo é editável.</p>
+    <p class="src">Simulação simplificada: não trata créditos sobre as tarifas dos marketplaces, ICMS-ST nem DIFAL. Marque "Simular 2027" na calculadora para comparar.</p>
+  </div>
+</section>
+
+<section class="block" id="lista-ia">
+  <div class="wrap">
+    <div class="wl split">
+      <div>
+        <h2>Responda perguntas do Mercado Livre com IA: lista de espera</h2>
+        <p>Estamos preparando uma extensão para o Chrome que lê a pergunta do comprador e os dados do seu anúncio (título, ficha técnica, envio) e sugere uma resposta em português em poucos segundos. Você revisa e clica em enviar: nada sai sozinho. O teste começa com respostas grátis. O preço que estamos testando fica entre R$ 39 e R$ 69 por mês.</p>
+        <div class="demo" aria-label="Exemplo de resposta">
+          <div class="q">Pergunta de um comprador</div>
+          "Serve no iPhone 13? Chega antes de sexta em Campinas?"
+          <div class="a">Olá! Serve sim: a capa é feita para o iPhone 13 (6,1"). Para Campinas, o prazo aparece no anúncio quando você coloca o seu CEP; enviamos no mesmo dia útil. Qualquer dúvida, estamos aqui.</div>
+          <div class="q" style="margin-top:6px">Exemplo ilustrativo de rascunho. A resposta real usa os dados do seu anúncio.</div>
+        </div>
+      </div>
+      <form id="wlForm" novalidate data-testid="waitlist">
+        <div class="field">
+          <label for="wlEmail">Seu e-mail</label>
+          <div class="box"><input id="wlEmail" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="voce@exemplo.com.br" data-testid="wl-email"></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="wlVolume">Perguntas por dia</label>
+            <select class="plain" id="wlVolume" name="volume"><option value="">Prefiro não dizer</option><option value="ate5">Até 5</option><option value="5a20">5 a 20</option><option value="20a50">20 a 50</option><option value="mais50">Mais de 50</option></select>
+          </div>
+          <div class="field">
+            <label for="wlMarket">Onde você vende</label>
+            <select class="plain" id="wlMarket" name="marketplace"><option value="">Prefiro não dizer</option><option value="ml">Mercado Livre</option><option value="shopee">Shopee</option><option value="ambos">Os dois</option></select>
+          </div>
+        </div>
+        <div class="hp" aria-hidden="true"><label>Não preencha <input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <label class="check"><input type="checkbox" id="wlConsent" name="consent" required data-testid="wl-consent"> <span>Concordo que a READ FRANCE SAS (Paris, França), controladora dos dados, guarde meu e-mail e as respostas acima só para avisar quando o teste abrir e pedir minha opinião sobre a ferramenta. Posso pedir acesso ou exclusão a qualquer momento em <a href="mailto:octave@vread.fr">octave@vread.fr</a>. Veja a <a href="privacidade.html">política de privacidade</a>.</span></label>
+        <button class="btn primary" type="submit" style="width:100%" data-testid="wl-submit">Entrar na lista de espera (grátis)</button>
+        <p class="wl-msg" id="wlMsg" role="status" data-testid="wl-msg"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="perguntas">
+  <div class="wrap prose">
+    <h2>Perguntas frequentes</h2>
+    <details><summary>Qual é a taxa do Mercado Livre em 2026?</summary><p>Entre 10% e 14% no anúncio Clássico e entre 15% e 19% no Premium, conforme a categoria, segundo a página oficial "Quanto custa vender um produto?". Além disso, o vendedor paga o custo dos Envios, que vale para todas as vendas e começa em R$ 5,65 para até 0,3 kg na tabela de reputação verde.</p></details>
+    <details><summary>O Mercado Livre ainda cobra custo fixo por venda abaixo de R$ 79?</summary><p>Nas páginas de ajuda lidas em 13/10/2026 não aparece um custo fixo separado. Abaixo de R$ 79 você paga o custo de envio da tabela: para até 0,3 kg, R$ 5,65 abaixo de R$ 19 (no máximo metade do preço), R$ 6,85 de R$ 19 a R$ 48,99 e R$ 8,15 de R$ 49 a R$ 78,99.</p></details>
+    <details><summary>Qual é a taxa da Shopee em 2026?</summary><p>Para lojas CNPJ, desde 01/10/2026: 20% + R$ 4,50 até R$ 79,99; 14% + R$ 16 de R$ 80 a R$ 99,99; 14% + R$ 20 de R$ 100 a R$ 199,99; 14% + R$ 26 a partir de R$ 200. Lojas CPF com mais de 450 pedidos em 90 dias pagam mais R$ 3 por item.</p></details>
+    <details><summary>Como calcular o preço de venda com margem no Mercado Livre?</summary><p>Some custo, embalagem e envio da faixa e divida por (1 − tarifa − imposto − margem). Com R$ 30 + R$ 2 + R$ 8,25, tarifa de 14%, imposto de 4% e margem de 15%: 40,25 ÷ 0,67 = R$ 60,08. Depois confira se o preço ficou na faixa de envio usada.</p></details>
+    <details><summary>A planilha de precificação é grátis?</summary><p>Sim. O botão "Baixar planilha" gera o arquivo .xlsx no seu aparelho, sem cadastro e sem e-mail. As fórmulas recalculam quando você muda o custo.</p></details>
+    <details><summary>Quem faz a Venda no Azul?</summary><p>A READ FRANCE SAS, empresa com sede em Paris. O site foi construído e é atualizado pelo Octave, o agente de IA da empresa. Não temos vínculo com o Mercado Livre nem com a Shopee. Escreva para <a href="mailto:octave@vread.fr">octave@vread.fr</a> se achar uma tarifa desatualizada.</p></details>
+  </div>
+</section>
+</main>
+
+<div class="minibar" id="minibar" aria-hidden="true"><span id="miniTxt">Calculando…</span><a href="#resultado">Ver detalhes</a></div>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Venda no Azul</strong> é operada pela READ FRANCE SAS, SIREN 988 741 773, Paris, França. Contato: <a href="mailto:octave@vread.fr">octave@vread.fr</a>.</p>
+    <p>Site feito e mantido pelo Octave, agente de IA da READ FRANCE. Sem vínculo com o Mercado Livre ou a Shopee; as marcas pertencem aos seus donos. Tarifas lidas em 13/10/2026.</p>
+    <p><a href="privacidade.html">Política de privacidade</a> · Contagem de uso anônima, sem cookies.</p>
+  </div>
+</footer>
+
+<script src="assets/mesure.js" defer></script>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>
