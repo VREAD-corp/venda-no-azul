@@ -68,14 +68,14 @@
 </header>
 
 <main>
-<div class="wrap hero">
+<div class="wrap hero" data-section="hero">
   <span class="kicker">Tarifas oficiais lidas em 13/10/2026</span>
   <h1>Calculadora de preço para Mercado Livre e Shopee (tarifas de 2026)</h1>
   <p class="lead">Coloque o custo do produto e veja o preço mínimo, o preço que garante a sua margem e o lucro por venda no ML Clássico, no ML Premium e na Shopee. Já entra a comissão da Shopee de 1º de outubro (R$ 4,50 por item até R$ 79,99) e o custo de envio do Mercado Livre por peso. Grátis, sem cadastro.</p>
 </div>
 
-<div class="wrap calc" id="calculadora">
-  <form id="f" class="inputs" novalidate autocomplete="off" onsubmit="return false">
+<div class="wrap calc" id="calculadora" data-section="calculadora">
+  <form id="calc" class="inputs" novalidate autocomplete="off" onsubmit="return false">
     <fieldset class="card">
       <legend>1. Produto</legend>
       <div class="grid2">
@@ -235,7 +235,7 @@
     </fieldset>
   </form>
 
-  <aside class="results card" id="resultado" aria-live="polite" data-testid="results">
+  <aside class="results card" id="resultado" data-section="resultado" aria-live="polite" data-testid="results">
     <h2 id="resTitle">Preço para lucrar 15% sobre a venda</h2>
     <p class="res-sub">Depois de tarifas, envio, imposto e custo. Por unidade.</p>
     <div class="prices" id="prices"></div>
@@ -371,12 +371,12 @@
 <section class="block" id="perguntas">
   <div class="wrap prose">
     <h2>Perguntas frequentes</h2>
-    <details><summary>Qual é a taxa do Mercado Livre em 2026?</summary><p>Entre 10% e 14% no anúncio Clássico e entre 15% e 19% no Premium, conforme a categoria, segundo a página oficial "Quanto custa vender um produto?". Além disso, o vendedor paga o custo dos Envios, que vale para todas as vendas e começa em R$ 5,65 para até 0,3 kg na tabela de reputação verde.</p></details>
-    <details><summary>O Mercado Livre ainda cobra custo fixo por venda abaixo de R$ 79?</summary><p>Nas páginas de ajuda lidas em 13/10/2026 não aparece um custo fixo separado. Abaixo de R$ 79 você paga o custo de envio da tabela: para até 0,3 kg, R$ 5,65 abaixo de R$ 19 (no máximo metade do preço), R$ 6,85 de R$ 19 a R$ 48,99 e R$ 8,15 de R$ 49 a R$ 78,99.</p></details>
-    <details><summary>Qual é a taxa da Shopee em 2026?</summary><p>Para lojas CNPJ, desde 01/10/2026: 20% + R$ 4,50 até R$ 79,99; 14% + R$ 16 de R$ 80 a R$ 99,99; 14% + R$ 20 de R$ 100 a R$ 199,99; 14% + R$ 26 a partir de R$ 200. Lojas CPF com mais de 450 pedidos em 90 dias pagam mais R$ 3 por item.</p></details>
-    <details><summary>Como calcular o preço de venda com margem no Mercado Livre?</summary><p>Some custo, embalagem e envio da faixa e divida por (1 − tarifa − imposto − margem). Com R$ 30 + R$ 2 + R$ 8,25, tarifa de 14%, imposto de 4% e margem de 15%: 40,25 ÷ 0,67 = R$ 60,08. Depois confira se o preço ficou na faixa de envio usada.</p></details>
-    <details><summary>A planilha de precificação é grátis?</summary><p>Sim. O botão "Baixar planilha" gera o arquivo .xlsx no seu aparelho, sem cadastro e sem e-mail. As fórmulas recalculam quando você muda o custo.</p></details>
-    <details><summary>Quem faz a Venda no Azul?</summary><p>A READ FRANCE SAS, empresa com sede em Paris. O site foi construído e é atualizado pelo Octave, o agente de IA da empresa. Não temos vínculo com o Mercado Livre nem com a Shopee. Escreva para <a href="mailto:octave@vread.fr">octave@vread.fr</a> se achar uma tarifa desatualizada.</p></details>
+    <details id="faq-taxa-ml"><summary>Qual é a taxa do Mercado Livre em 2026?</summary><p>Entre 10% e 14% no anúncio Clássico e entre 15% e 19% no Premium, conforme a categoria, segundo a página oficial "Quanto custa vender um produto?". Além disso, o vendedor paga o custo dos Envios, que vale para todas as vendas e começa em R$ 5,65 para até 0,3 kg na tabela de reputação verde.</p></details>
+    <details id="faq-custo-fixo-ml"><summary>O Mercado Livre ainda cobra custo fixo por venda abaixo de R$ 79?</summary><p>Nas páginas de ajuda lidas em 13/10/2026 não aparece um custo fixo separado. Abaixo de R$ 79 você paga o custo de envio da tabela: para até 0,3 kg, R$ 5,65 abaixo de R$ 19 (no máximo metade do preço), R$ 6,85 de R$ 19 a R$ 48,99 e R$ 8,15 de R$ 49 a R$ 78,99.</p></details>
+    <details id="faq-taxa-shopee"><summary>Qual é a taxa da Shopee em 2026?</summary><p>Para lojas CNPJ, desde 01/10/2026: 20% + R$ 4,50 até R$ 79,99; 14% + R$ 16 de R$ 80 a R$ 99,99; 14% + R$ 20 de R$ 100 a R$ 199,99; 14% + R$ 26 a partir de R$ 200. Lojas CPF com mais de 450 pedidos em 90 dias pagam mais R$ 3 por item.</p></details>
+    <details id="faq-calculo-margem"><summary>Como calcular o preço de venda com margem no Mercado Livre?</summary><p>Some custo, embalagem e envio da faixa e divida por (1 − tarifa − imposto − margem). Com R$ 30 + R$ 2 + R$ 8,25, tarifa de 14%, imposto de 4% e margem de 15%: 40,25 ÷ 0,67 = R$ 60,08. Depois confira se o preço ficou na faixa de envio usada.</p></details>
+    <details id="faq-planilha"><summary>A planilha de precificação é grátis?</summary><p>Sim. O botão "Baixar planilha" gera o arquivo .xlsx no seu aparelho, sem cadastro e sem e-mail. As fórmulas recalculam quando você muda o custo.</p></details>
+    <details id="faq-quem-faz"><summary>Quem faz a Venda no Azul?</summary><p>A READ FRANCE SAS, empresa com sede em Paris. O site foi construído e é atualizado pelo Octave, o agente de IA da empresa. Não temos vínculo com o Mercado Livre nem com a Shopee. Escreva para <a href="mailto:octave@vread.fr">octave@vread.fr</a> se achar uma tarifa desatualizada.</p></details>
   </div>
 </section>
 </main>
@@ -387,10 +387,11 @@
   <div class="wrap">
     <p><strong>Venda no Azul</strong> é operada pela READ FRANCE SAS, SIREN 988 741 773, Paris, França. Contato: <a href="mailto:octave@vread.fr">octave@vread.fr</a>.</p>
     <p>Site feito e mantido pelo Octave, agente de IA da READ FRANCE. Sem vínculo com o Mercado Livre ou a Shopee; as marcas pertencem aos seus donos. Tarifas lidas em 13/10/2026.</p>
-    <p><a href="privacidade.html">Política de privacidade</a> · Contagem de uso anônima, sem cookies.</p>
+    <p><a href="privacidade.html">Política de privacidade</a> · Medição de uso anônima e agregada, sem cookies.</p>
   </div>
 </footer>
 
+<script src="assets/cro.js" data-site="venda-no-azul" data-api="https://script.google.com/macros/s/AKfycbyE7sl55i4q5RYcyacG13y6GDu1vf_eR2_1vUKKq-oSculAtpdYgr6rTJ73kMLWkRth/exec" data-hosts="outils.vread.fr vendanoazul.github.io" data-cta=".btn" defer></script>
 <script src="assets/mesure.js?v=2" defer></script>
 <script type="module" src="assets/app.js"></script>
 </body>

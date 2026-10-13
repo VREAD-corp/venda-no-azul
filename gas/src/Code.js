@@ -10,8 +10,12 @@
  *              or our own tests with octave_notrack=1) goes to the `Exclus` tab by reason instead.
  *  - waitlist  SA-BR-01 waitlist ("Responda perguntas do Mercado Livre com IA"): e-mail + 2 optional
  *              answers + explicit consent, one row per e-mail in the `ListaEspera` tab.
- *  - stats     (GET) today's aggregated counters (counted and excluded, views raw vs filtered) and the
- *              number of waitlist rows. No personal data.
+ *  - track with kind 'cro'  the once-per-page batch of cro.js (aggregate behaviour + A/B counters, src/Cro.js,
+ *              vendored byte-identical from octave-checkout) into the `Comportement` / `Experiences` tabs.
+ *  - cro       aggregated behaviour and A/B summary (key: Script Property CRO_KEY_SHA256, never in git).
+ *  - cro_init  (POST only) stores the SHA-256 of the read key once; refuses afterwards.
+ *  - stats     (GET) today's aggregated counters (counted and excluded, views raw vs filtered), the
+ *              number of waitlist rows and today's CRO summary (`cro`). No personal data.
  * Helpers end with "_" so they cannot be called through google.script.run.
  */
 
@@ -37,7 +41,13 @@ var MARKETS_ = ['', 'ml', 'shopee', 'ambos'];
 var RATE_TRACK_ = 300;   // hits per minute, all pages
 var RATE_WL_ = 20;       // sign-ups per minute
 
-function doGet(e) { return route_((e && e.parameter) || {}); }
+// cro.js behaviour counters and A/B results (src/Cro.js): same spreadsheet, same day boundary as Stats.
+var CRO_SITES_ = [SITE_];
+var CRO_EXPERIMENTS_ = {}; // {expId: [variants]}: add an entry when the site's OCTAVE_XP config starts an experiment
+var CRO_TZ_ = 'America/Sao_Paulo';
+function croBook_() { return SpreadsheetApp.getActiveSpreadsheet(); }
+
+function doGet(e) { return route_((e && e.parameter) || {}, false); }
 
 function doPost(e) {
   var raw = e && e.postData && e.postData.contents;
@@ -48,13 +58,15 @@ function doPost(e) {
   }
   var params = (e && e.parameter) || {};
   if (!body.action && params.action) body.action = params.action;
-  return route_(body);
+  return route_(body, true);
 }
 
-function route_(req) {
+function route_(req, post) {
   try {
     switch (String(req.action || '')) {
-      case 'track': return json_(track_(req));
+      case 'track': return json_(req.kind === 'cro' ? croTrack_(req) : track_(req));
+      case 'cro': return json_(croAction_(req));
+      case 'cro_init': return json_(post ? croInit_(req) : { ok: false, error: 'method_not_allowed' });
       case 'waitlist': return json_(waitlist_(req));
       case 'stats': return json_(stats_());
       default: return json_({ ok: false, error: 'unknown_action' });
@@ -241,7 +253,7 @@ function stats_() {
   }
   views.raw = views.counted + views.excluded;
   var wl = tab_(WL_TAB_, WL_HEADER_);
-  return { ok: true, day: date, counters: out, excluded: excluded, views: views, waitlist_total: Math.max(wl.getLastRow() - 1, 0), events: EVENTS_.concat(SERVER_EVENTS_) };
+  return { ok: true, day: date, counters: out, excluded: excluded, views: views, waitlist_total: Math.max(wl.getLastRow() - 1, 0), events: EVENTS_.concat(SERVER_EVENTS_), cro: croSummary_(date, date) };
 }
 
 /** Run once from the editor (or let the first request do it): creates both tabs with headers. */

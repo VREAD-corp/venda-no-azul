@@ -2,7 +2,7 @@ import { ML_SHIPPING, SIMPLES_ANEXO_I, SIMPLES_2027_SHARE, CHECKED_AT } from './
 import { DEFAULTS, compute, simplesEffective, fmt, pct } from './calc.js';
 
 const $ = (s) => document.querySelector(s);
-const form = $('#f');
+const form = $('#calc');
 const STORE = 'vna-inputs-v1';
 const CONSENT_VERSION = 'v1-2026-10-13';
 const track = (e) => { try { window.vnaTrack && window.vnaTrack(e); } catch (x) { /* ignore */ } };
@@ -189,12 +189,14 @@ $('#dlXlsx').addEventListener('click', async () => {
   download(buildXlsx(readState()), 'planilha-precificacao-mercado-livre-shopee-2026.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
   toast('Planilha baixada. As células amarelas são editáveis.');
   track('download_xlsx');
+  window.octaveCro && window.octaveCro.goal('download');
 });
 $('#dlCsv').addEventListener('click', async () => {
   const { buildCsv } = await import('./xlsx.js');
   download(buildCsv(readState()), 'precificacao-mercado-livre-shopee-2026.csv', 'text/csv;charset=utf-8');
   toast('CSV baixado.');
   track('download_csv');
+  window.octaveCro && window.octaveCro.goal('download');
 });
 
 // Mobile bar: visible while the results card is off screen.
@@ -203,7 +205,7 @@ if ('IntersectionObserver' in window) {
   let resultsVisible = false; let calcVisible = true;
   const upd = () => minibar.classList.toggle('show', !resultsVisible && calcVisible);
   new IntersectionObserver((e) => { resultsVisible = e[0].isIntersecting; upd(); }).observe($('#resultado'));
-  new IntersectionObserver((e) => { calcVisible = e[0].isIntersecting; upd(); }).observe($('#f'));
+  new IntersectionObserver((e) => { calcVisible = e[0].isIntersecting; upd(); }).observe(form);
   let wlSeen = false;
   new IntersectionObserver((e) => { if (!wlSeen && e[0].isIntersecting) { wlSeen = true; track('waitlist_open'); } }, { threshold: 0.4 }).observe($('#wlForm'));
 }
@@ -231,6 +233,7 @@ wl.addEventListener('submit', async (ev) => {
     const r = await fetch(window.VNA_API + '?action=waitlist', { method: 'POST', credentials: 'omit', body: JSON.stringify(body) });
     const j = await r.json();
     if (!j.ok) throw new Error(j.error || 'erro');
+    window.octaveCro && window.octaveCro.goal('waitlist');
     msg.classList.add('ok');
     msg.textContent = j.already ? 'Esse e-mail já estava na lista. Avisaremos quando o teste abrir.' : 'Pronto, você está na lista. Avisaremos por e-mail quando o teste abrir.';
     wl.reset();

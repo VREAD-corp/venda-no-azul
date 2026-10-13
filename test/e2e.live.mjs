@@ -32,10 +32,15 @@ for (const [w, h, tag] of [[390, 844, 'mobile'], [1440, 900, 'desktop']]) {
   await ctx.addInitScript(() => localStorage.setItem('octave_notrack', '1'));
   const p = await ctx.newPage();
   const errors = []; p.on('pageerror', (e) => errors.push(String(e)));
-  const trackPosts = [], flags = new Set(); p.on('request', (r) => { if (r.url().includes('action=track')) { const b = JSON.parse(r.postData() || '{}'); trackPosts.push(b.event); flags.add(b.excluded); } });
+  const trackPosts = [], flags = new Set(), croPosts = [], croLoads = [];
+  p.on('request', (r) => { if (r.url().includes('action=track')) { const b = JSON.parse(r.postData() || '{}'); if (b.kind === 'cro') croPosts.push(b); else { trackPosts.push(b.event); flags.add(b.excluded); } } });
+  p.on('response', (r) => { if (/\/assets\/cro\.js(\?|$)/.test(r.url())) croLoads.push(r.status()); });
   await p.goto(BASE, { waitUntil: 'networkidle' });
   await p.evaluate(() => localStorage.clear());
   await p.reload({ waitUntil: 'networkidle' });
+  // cro.js (behaviour counters + A/B): loaded, ready, no experiment on this site, nothing sent under octave_notrack=1.
+  check(`[${tag}] cro.js loaded`, croLoads.includes(200), croLoads.join(','));
+  check(`[${tag}] octaveCro ready, no variant drawn`, await p.evaluate(() => typeof window.octaveCro?.goal === 'function' && window.octaveCro.v('price') === undefined && ![...document.documentElement.attributes].some((a) => a.name.startsWith('data-xp-'))));
   check(`[${tag}] no horizontal scroll`, await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   check(`[${tag}] title`, /Calculadora Mercado Livre e Shopee 2026/.test(await p.title()));
   await p.screenshot({ path: join(OUT, `${tag}-top.png`) });
@@ -104,6 +109,8 @@ for (const [w, h, tag] of [[390, 844, 'mobile'], [1440, 900, 'desktop']]) {
   await p.locator('#lista-ia').screenshot({ path: join(OUT, `${tag}-waitlist.png`) });
   await p.screenshot({ path: join(OUT, `${tag}-full.png`), fullPage: true });
   check(`[${tag}] tracking requests sent (view, calc, downloads, copy)`, ['view', 'calc', 'download_xlsx', 'download_csv', 'copy'].every((e) => trackPosts.includes(e)), trackPosts.join(','));
+  await p.evaluate(() => document.dispatchEvent(new Event('visibilitychange'))); await p.waitForTimeout(300);
+  check(`[${tag}] cro.js sends nothing under octave_notrack=1`, croPosts.length === 0, String(croPosts.length));
   check(`[${tag}] every tracking hit is flagged octave_notrack`, flags.size === 1 && flags.has('notrack'), [...flags].join(','));
   check(`[${tag}] no JS errors`, errors.length === 0, errors.join(' | '));
   await ctx.close();
