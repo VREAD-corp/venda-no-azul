@@ -8,7 +8,7 @@ if(!x&&q.get('octave_notrack')=='1')x='notrack';
 if(!x&&n.webdriver)x='webdriver';
 if(!x&&/bot\b|crawl|spider|slurp|headless|lighthouse|pagespeed|inspectiontool|googleother|mediapartners|bingpreview|phantom|puppeteer|playwright|selenium/i.test(n.userAgent||''))x='bot';
 window.VNA_EXCLUDED=x;
-b={action:'track',page:l.pathname,ref_domain:d.referrer.split('/')[2]||'',device:innerWidth<768?'mobile':'desktop'};
+b={action:'track',v:2,page:l.pathname,ref_domain:d.referrer.split('/')[2]||'',device:innerWidth<768?'mobile':'desktop'};
 if(x)b.excluded=x;
 for(k of['source','medium','campaign'])b['utm_'+k]=q.get('utm_'+k);
 window.vnaTrack=function(e){b.event=e;b.ts=Date.now();try{fetch(A+'?action=track',{method:'POST',keepalive:!0,credentials:'omit',redirect:'manual',body:JSON.stringify(b)}).catch(function(){})}catch(x){}};

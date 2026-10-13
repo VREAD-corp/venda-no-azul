@@ -24,7 +24,9 @@ var STATS_KEYS_ = 7;
 var EXCL_TAB_ = 'Exclus';
 var EXCL_HEADER_ = ['date', 'site', 'page', 'event', 'reason', 'count', 'mobile', 'desktop', 'updated_at'];
 var EXCL_KEYS_ = 5;
-var EXCL_REASONS_ = ['webdriver', 'bot', 'notrack'];   // decided in the browser; the user agent is never sent
+// Decided in the browser (the user agent is never sent); 'legacy' = a hit without v, i.e. from a cached pre-filter
+// mesure.js, which search-engine renderers keep using.
+var EXCL_REASONS_ = ['webdriver', 'bot', 'notrack', 'legacy'];
 var WL_TAB_ = 'ListaEspera';
 var WL_HEADER_ = ['created_at', 'email', 'volume', 'marketplace', 'consent_version', 'page', 'source'];
 var OWN_HOSTS_ = ['outils.vread.fr', 'vendanoazul.github.io', 'vread-corp.github.io'];
@@ -127,7 +129,7 @@ function track_(req) {
     medium: token_(req.utm_medium, 30), campaign: token_(req.utm_campaign, 50),
     device: req.device === 'mobile' || req.device === 'desktop' ? req.device : '',
   };
-  var reason = excludedReason_(req);
+  var reason = req.v ? excludedReason_(req) : 'legacy';
   if (!rateOk_('track', RATE_TRACK_)) return { ok: false, error: 'rate_limited' };
   withLock_(function () { if (reason) incrementExcluded_(hit, reason); else increment_(hit); });
   return { ok: true };

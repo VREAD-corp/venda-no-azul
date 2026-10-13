@@ -29,7 +29,7 @@ function run({ ua = CHROME, webdriver = false, search = '', store = {}, prerende
 test('a normal visit is counted and the user agent is never sent', () => {
   const r = run();
   assert.deepEqual(r.sent.map((b) => b.event), ['view']);
-  assert.ok(r.sent.every((b) => !('excluded' in b)));
+  assert.ok(r.sent.every((b) => !('excluded' in b) && b.v === 2), 'v=2 marks the current snippet');
   assert.ok(!JSON.stringify(r.sent).includes('Chrome'));
   r.ctx.vnaTrack('calc');
   assert.equal(r.sent[1].event, 'calc');
