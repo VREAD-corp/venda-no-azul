@@ -14,8 +14,8 @@
  *              vendored byte-identical from octave-checkout) into the `Comportement` / `Experiences` tabs.
  *  - cro       aggregated behaviour and A/B summary (key: Script Property CRO_KEY_SHA256, never in git).
  *  - cro_init  (POST only) stores the SHA-256 of the read key once; refuses afterwards.
- *  - stats     (GET) today's aggregated counters (counted and excluded, views raw vs filtered), the
- *              number of waitlist rows and today's CRO summary (`cro`). No personal data.
+ *  - stats     (GET, public) today's aggregated counters (counted and excluded, views raw vs filtered) and
+ *              the number of waitlist rows. No personal data; behaviour data is read only through `cro`.
  * Helpers end with "_" so they cannot be called through google.script.run.
  */
 
@@ -253,7 +253,7 @@ function stats_() {
   }
   views.raw = views.counted + views.excluded;
   var wl = tab_(WL_TAB_, WL_HEADER_);
-  return { ok: true, day: date, counters: out, excluded: excluded, views: views, waitlist_total: Math.max(wl.getLastRow() - 1, 0), events: EVENTS_.concat(SERVER_EVENTS_), cro: croSummary_(date, date) };
+  return { ok: true, day: date, counters: out, excluded: excluded, views: views, waitlist_total: Math.max(wl.getLastRow() - 1, 0), events: EVENTS_.concat(SERVER_EVENTS_) };
 }
 
 /** Run once from the editor (or let the first request do it): creates both tabs with headers. */

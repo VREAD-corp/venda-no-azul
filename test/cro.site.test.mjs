@@ -69,5 +69,5 @@ test('backend: CRO settings and routes', () => {
   assert.match(code, /case 'track': return json_\(req\.kind === 'cro' \? croTrack_\(req\) : track_\(req\)\);/);
   assert.match(code, /case 'cro': return json_\(croAction_\(req\)\);/);
   assert.match(code, /case 'cro_init': return json_\(post \? croInit_\(req\)/);
-  assert.match(code, /cro: croSummary_\(date, date\)/);
+  assert.ok(!/croSummary_\(/.test(code.replace(/^[\s\S]*?function stats_/, 'function stats_')), 'the public stats action never exposes the CRO summary');
 });
