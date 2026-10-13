@@ -226,6 +226,7 @@ wl.addEventListener('submit', async (ev) => {
     page: location.pathname, ref_domain: document.referrer.split('/')[2] || '', utm_source: q.get('utm_source') || '',
     device: innerWidth < 768 ? 'mobile' : 'desktop',
   };
+  if (window.VNA_EXCLUDED) body.excluded = window.VNA_EXCLUDED; // our tests / bots: the signup is kept, the counter goes to Exclus
   try {
     const r = await fetch(window.VNA_API + '?action=waitlist', { method: 'POST', credentials: 'omit', body: JSON.stringify(body) });
     const j = await r.json();

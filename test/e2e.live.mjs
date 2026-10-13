@@ -18,7 +18,8 @@ const check = (name, ok, detail = '') => { results.push({ name, ok, detail }); c
 async function stats() {
   try { const r = await fetch(API + '?action=stats'); const j = JSON.parse(await r.text()); return j.ok ? j : null; } catch { return null; }
 }
-const count = (s, page, ev) => (s && s.counters[`${page} ${ev}`]) || 0;
+// Our runs set octave_notrack=1, so their hits land in the excluded counters (reason notrack), never in visits.
+const count = (s, page, ev) => (s && s.excluded && s.excluded[`${page} ${ev}|notrack`]) || 0;
 const priceOf = async (p, id) => Number(await p.locator(`[data-testid="price-${id}"] .val`).getAttribute('data-value'));
 const setVal = async (p, sel, v) => { await p.fill(sel, String(v)); await p.dispatchEvent(sel, 'change'); await p.waitForTimeout(250); };
 
@@ -28,9 +29,10 @@ check('GAS stats endpoint answers (owner consent given)', before ? true : null, 
 const browser = await chromium.launch({ headless: true });
 for (const [w, h, tag] of [[390, 844, 'mobile'], [1440, 900, 'desktop']]) {
   const ctx = await browser.newContext({ viewport: { width: w, height: h }, isMobile: w < 500, hasTouch: w < 500, locale: 'pt-BR', acceptDownloads: true, permissions: ['clipboard-read', 'clipboard-write'] });
+  await ctx.addInitScript(() => localStorage.setItem('octave_notrack', '1'));
   const p = await ctx.newPage();
   const errors = []; p.on('pageerror', (e) => errors.push(String(e)));
-  const trackPosts = []; p.on('request', (r) => { if (r.url().includes('action=track')) trackPosts.push(JSON.parse(r.postData() || '{}').event); });
+  const trackPosts = [], flags = new Set(); p.on('request', (r) => { if (r.url().includes('action=track')) { const b = JSON.parse(r.postData() || '{}'); trackPosts.push(b.event); flags.add(b.excluded); } });
   await p.goto(BASE, { waitUntil: 'networkidle' });
   await p.evaluate(() => localStorage.clear());
   await p.reload({ waitUntil: 'networkidle' });
@@ -102,6 +104,7 @@ for (const [w, h, tag] of [[390, 844, 'mobile'], [1440, 900, 'desktop']]) {
   await p.locator('#lista-ia').screenshot({ path: join(OUT, `${tag}-waitlist.png`) });
   await p.screenshot({ path: join(OUT, `${tag}-full.png`), fullPage: true });
   check(`[${tag}] tracking requests sent (view, calc, downloads, copy)`, ['view', 'calc', 'download_xlsx', 'download_csv', 'copy'].every((e) => trackPosts.includes(e)), trackPosts.join(','));
+  check(`[${tag}] every tracking hit is flagged octave_notrack`, flags.size === 1 && flags.has('notrack'), [...flags].join(','));
   check(`[${tag}] no JS errors`, errors.length === 0, errors.join(' | '));
   await ctx.close();
 }
@@ -111,7 +114,7 @@ await new Promise((r) => setTimeout(r, 6000));
 const after = await stats();
 if (before && after) {
   const pg = '/';
-  for (const ev of ['view', 'calc', 'download_xlsx', 'download_csv', 'copy', 'waitlist_signup']) check(`tracking increments: ${ev}`, count(after, pg, ev) > count(before, pg, ev), `${count(before, pg, ev)} -> ${count(after, pg, ev)}`);
+  for (const ev of ['view', 'calc', 'download_xlsx', 'download_csv', 'copy', 'waitlist_signup']) check(`excluded (notrack) counter increments: ${ev}`, count(after, pg, ev) > count(before, pg, ev), `${count(before, pg, ev)} -> ${count(after, pg, ev)}`);
   check('waitlist rows increased by 2', after.waitlist_total - before.waitlist_total === 2, `${before.waitlist_total} -> ${after.waitlist_total}`);
 } else check('tracking increments in the Sheet', null, 'pending owner consent of the Apps Script web app');
 

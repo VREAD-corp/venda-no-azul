@@ -6,9 +6,12 @@
  * Actions (POST text/plain JSON, so no CORS preflight; or GET with the same fields):
  *  - track     cookieless anonymous counters (no IP, no user agent, no identifier), aggregated per day
  *              into the `Stats` tab, never one row per hit. Same approach as octave-checkout/Track.js.
+ *              A hit flagged `excluded` by mesure.js (crawler or headless user agent, navigator.webdriver,
+ *              or our own tests with octave_notrack=1) goes to the `Exclus` tab by reason instead.
  *  - waitlist  SA-BR-01 waitlist ("Responda perguntas do Mercado Livre com IA"): e-mail + 2 optional
  *              answers + explicit consent, one row per e-mail in the `ListaEspera` tab.
- *  - stats     (GET) today's aggregated counters and the number of waitlist rows. No personal data.
+ *  - stats     (GET) today's aggregated counters (counted and excluded, views raw vs filtered) and the
+ *              number of waitlist rows. No personal data.
  * Helpers end with "_" so they cannot be called through google.script.run.
  */
 
@@ -18,6 +21,10 @@ var SERVER_EVENTS_ = ['waitlist_signup'];
 var STATS_TAB_ = 'Stats';
 var STATS_HEADER_ = ['date', 'site', 'page', 'event', 'source', 'medium', 'campaign', 'count', 'mobile', 'desktop', 'updated_at'];
 var STATS_KEYS_ = 7;
+var EXCL_TAB_ = 'Exclus';
+var EXCL_HEADER_ = ['date', 'site', 'page', 'event', 'reason', 'count', 'mobile', 'desktop', 'updated_at'];
+var EXCL_KEYS_ = 5;
+var EXCL_REASONS_ = ['webdriver', 'bot', 'notrack'];   // decided in the browser; the user agent is never sent
 var WL_TAB_ = 'ListaEspera';
 var WL_HEADER_ = ['created_at', 'email', 'volume', 'marketplace', 'consent_version', 'page', 'source'];
 var OWN_HOSTS_ = ['outils.vread.fr', 'vendanoazul.github.io', 'vread-corp.github.io'];
@@ -120,8 +127,9 @@ function track_(req) {
     medium: token_(req.utm_medium, 30), campaign: token_(req.utm_campaign, 50),
     device: req.device === 'mobile' || req.device === 'desktop' ? req.device : '',
   };
+  var reason = excludedReason_(req);
   if (!rateOk_('track', RATE_TRACK_)) return { ok: false, error: 'rate_limited' };
-  withLock_(function () { increment_(hit); });
+  withLock_(function () { if (reason) incrementExcluded_(hit, reason); else increment_(hit); });
   return { ok: true };
 }
 
@@ -131,26 +139,41 @@ function withLock_(fn) {
   try { return fn(); } finally { lock.releaseLock(); }
 }
 
+/** '' for a visit, else why the hit is not one (unknown flags count as 'bot'). */
+function excludedReason_(req) {
+  if (!req.excluded) return '';
+  return EXCL_REASONS_.indexOf(String(req.excluded)) >= 0 ? String(req.excluded) : 'bot';
+}
+
 /** Caller holds the lock. Increments the day's counter row for this key, or appends it. */
 function increment_(h) {
-  var sh = tab_(STATS_TAB_, STATS_HEADER_);
-  var key = [h.date, h.site, h.page, h.event, h.source, h.medium, h.campaign].join('\u001f');
+  incrementRow_(STATS_TAB_, STATS_HEADER_, STATS_KEYS_, [h.date, h.site, h.page, h.event, h.source, h.medium, h.campaign], h.device);
+}
+
+/** Caller holds the lock. Same daily counters for hits that are not visits, keyed by reason. */
+function incrementExcluded_(h, reason) {
+  incrementRow_(EXCL_TAB_, EXCL_HEADER_, EXCL_KEYS_, [h.date, h.site, h.page, h.event, reason], h.device);
+}
+
+function incrementRow_(name, header, nKeys, keys, device) {
+  var sh = tab_(name, header);
+  var key = keys.join('\u001f');
+  var h = { date: keys[0], device: device };
   var last = sh.getLastRow();
   var row = 0;
   var n = Math.min(Math.max(last - 1, 0), 2000);
   if (n > 0) {
-    var vals = sh.getRange(last - n + 1, 1, n, STATS_KEYS_).getValues();
+    var vals = sh.getRange(last - n + 1, 1, n, nKeys).getValues();
     for (var i = vals.length - 1; i >= 0; i--) {
       if (cell_(vals[i][0]) < h.date) break;
       if (vals[i].map(cell_).join('\u001f') === key) { row = last - n + 1 + i; break; }
     }
   }
   if (!row) {
-    sh.appendRow([txt_(h.date), h.site, txt_(h.page), h.event, txt_(h.source), txt_(h.medium), txt_(h.campaign), 1,
-      h.device === 'mobile' ? 1 : 0, h.device === 'desktop' ? 1 : 0, now_().toISOString()]);
+    sh.appendRow(keys.map(txt_).concat([1, h.device === 'mobile' ? 1 : 0, h.device === 'desktop' ? 1 : 0, now_().toISOString()]));
   } else {
-    var c = sh.getRange(row, STATS_KEYS_ + 1, 1, 3).getValues()[0];
-    sh.getRange(row, STATS_KEYS_ + 1, 1, 4).setValues([[Number(c[0] || 0) + 1,
+    var c = sh.getRange(row, nKeys + 1, 1, 3).getValues()[0];
+    sh.getRange(row, nKeys + 1, 1, 4).setValues([[Number(c[0] || 0) + 1,
       Number(c[1] || 0) + (h.device === 'mobile' ? 1 : 0), Number(c[2] || 0) + (h.device === 'desktop' ? 1 : 0), now_().toISOString()]]);
   }
 }
@@ -176,8 +199,10 @@ function waitlist_(req) {
       for (var i = 0; i < emails.length; i++) if (String(emails[i][0]).replace(/^'/, '') === email) return { ok: true, already: true };
     }
     sh.appendRow([now_().toISOString(), txt_(email), volume, market, String(req.consent_version), txt_(page), txt_(source_(req))]);
-    increment_({ date: day_(now_()), site: SITE_, page: page, event: 'waitlist_signup', source: '(servidor)', medium: '', campaign: '',
-      device: req.device === 'mobile' || req.device === 'desktop' ? req.device : '' });
+    var sh2 = { date: day_(now_()), site: SITE_, page: page, event: 'waitlist_signup', source: '(servidor)', medium: '', campaign: '',
+      device: req.device === 'mobile' || req.device === 'desktop' ? req.device : '' };
+    var reason = excludedReason_(req);
+    if (reason) incrementExcluded_(sh2, reason); else increment_(sh2);
     return { ok: true };
   });
 }
@@ -200,13 +225,27 @@ function stats_() {
       out[k] = (out[k] || 0) + Number(vals[i][7] || 0);
     }
   }
+  var excluded = {}, views = { counted: 0, excluded: 0 };
+  Object.keys(out).forEach(function (k) { if (/ view$/.test(k)) views.counted += out[k]; });
+  var ex = tab_(EXCL_TAB_, EXCL_HEADER_);
+  var m = Math.min(Math.max(ex.getLastRow() - 1, 0), 5000);
+  if (m > 0) {
+    ex.getRange(ex.getLastRow() - m + 1, 1, m, EXCL_HEADER_.length).getValues().forEach(function (r) {
+      if (cell_(r[0]) !== date) return;
+      var k = cell_(r[2]).replace(/^'/, '') + ' ' + r[3] + '|' + r[4];
+      excluded[k] = (excluded[k] || 0) + Number(r[5] || 0);
+      if (r[3] === 'view') views.excluded += Number(r[5] || 0);
+    });
+  }
+  views.raw = views.counted + views.excluded;
   var wl = tab_(WL_TAB_, WL_HEADER_);
-  return { ok: true, day: date, counters: out, waitlist_total: Math.max(wl.getLastRow() - 1, 0), events: EVENTS_.concat(SERVER_EVENTS_) };
+  return { ok: true, day: date, counters: out, excluded: excluded, views: views, waitlist_total: Math.max(wl.getLastRow() - 1, 0), events: EVENTS_.concat(SERVER_EVENTS_) };
 }
 
 /** Run once from the editor (or let the first request do it): creates both tabs with headers. */
 function setup() {
   tab_(STATS_TAB_, STATS_HEADER_);
+  tab_(EXCL_TAB_, EXCL_HEADER_);
   tab_(WL_TAB_, WL_HEADER_);
   var first = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1') || SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Página1') || SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Feuille 1');
   if (first && SpreadsheetApp.getActiveSpreadsheet().getSheets().length > 2) SpreadsheetApp.getActiveSpreadsheet().deleteSheet(first);
