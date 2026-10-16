@@ -47,7 +47,7 @@ test('without OCTAVE_XP no variant is drawn, nothing is stored, octaveCro is rea
   const session = {};
   const ctx = {
     document: { currentScript: { dataset: { site: 'venda-no-azul', api: API, hosts: HOSTS.join(' ') } }, readyState: 'complete', documentElement: html, querySelectorAll: () => [], addEventListener() {} },
-    navigator: { userAgent: 'Mozilla/5.0 Chrome/141', webdriver: false }, location: { hostname: 'outils.vread.fr', pathname: '/venda-no-azul/', search: '?octave_notrack=1' },
+    navigator: { userAgent: 'Mozilla/5.0 Chrome/141', webdriver: false }, location: { hostname: 'venda.jalonel.com', pathname: '/', search: '?octave_notrack=1' },
     sessionStorage: { getItem: (k) => session[k] ?? null, setItem: (k, v) => { session[k] = v; } }, localStorage: { getItem: () => null },
     URLSearchParams, addEventListener() {}, fetch: () => { throw new Error('nothing is sent under octave_notrack=1'); },
   };

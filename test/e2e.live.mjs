@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 const { chromium } = await import(process.env.PLAYWRIGHT_CORE || '/home/vincent/clients/v-read/dev/octave-checkout/node_modules/playwright-core/index.mjs');
-const BASE = process.argv[2] || 'https://outils.vread.fr/venda-no-azul/';
+const BASE = process.argv[2] || 'https://venda.jalonel.com/';
 const OUT = process.argv[3] || join(tmpdir(), 'vna-e2e');
 mkdirSync(OUT, { recursive: true });
 const API = (readFileSync(new URL('../docs/assets/mesure.js', import.meta.url), 'utf8').match(/https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec/) || [])[0];
@@ -43,6 +43,8 @@ for (const [w, h, tag] of [[390, 844, 'mobile'], [1440, 900, 'desktop']]) {
   check(`[${tag}] octaveCro ready, no variant drawn`, await p.evaluate(() => typeof window.octaveCro?.goal === 'function' && window.octaveCro.v('price') === undefined && ![...document.documentElement.attributes].some((a) => a.name.startsWith('data-xp-'))));
   check(`[${tag}] no horizontal scroll`, await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   check(`[${tag}] title`, /Calculadora Mercado Livre e Shopee 2026/.test(await p.title()));
+  check(`[${tag}] canonical = ${BASE}`, (await p.getAttribute('link[rel=canonical]', 'href')) === BASE);
+  check(`[${tag}] footer: Uma marca Jalonel`, (await p.locator('footer a[href="https://jalonel.com/en/"]').innerText()).trim() === 'Uma marca Jalonel');
   await p.screenshot({ path: join(OUT, `${tag}-top.png`) });
 
   // Case 1 (defaults): R$ 30 + 2, 0,3-0,5 kg, Clássico 14 %, Premium 19 %, Simples RBT12 120k (4 %), margin 15 %
