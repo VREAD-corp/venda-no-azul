@@ -79,3 +79,12 @@ test('backend: CRO settings and routes', () => {
   assert.match(code, /case 'cro_init': return json_\(post \? croInit_\(req\)/);
   assert.ok(!/croSummary_\(/.test(code.replace(/^[\s\S]*?function stats_/, 'function stats_')), 'the public stats action never exposes the CRO summary');
 });
+
+test('Apps Script: own host only, no reading-site mention, every e-mail (if any) replies to contact@jalonel.com', () => {
+  const code = read('gas/src/Code.js'), cro = read('gas/src/Cro.js');
+  assert.match(code, /var OWN_HOSTS_ = \['venda\.jalonel\.com'\];/);
+  for (const s of [code, cro]) {
+    assert.doesNotMatch(s, /vread/i);
+    for (const call of s.match(/(MailApp|GmailApp)\.send\w*\([^;]*/g) || []) assert.match(call, /replyTo: *'contact@jalonel\.com'/, call);
+  }
+});
