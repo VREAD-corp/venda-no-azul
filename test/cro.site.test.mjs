@@ -10,6 +10,14 @@ const API = mesure.match(/https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-
 const HOSTS = JSON.parse('[' + mesure.match(/\[('[^\]]+')\]\.indexOf\(l\.hostname\)/)[1].replace(/'/g, '"') + ']');
 const PAGES = fs.readdirSync(new URL('../docs/', import.meta.url)).filter((f) => f.endsWith('.html') && !/^google[0-9a-f]+\.html$/.test(f));
 
+test('served files (docs/) carry no reference to the reading sites, their address or the GitHub repo', () => {
+  const walk = (d) => fs.readdirSync(new URL('../' + d, import.meta.url), { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(d + e.name + '/') : [d + e.name]);
+  const files = walk('docs/').filter((f) => /\.(html|js|css|json|xml|txt)$/.test(f));
+  assert.ok(files.includes('docs/index.html') && files.includes('docs/assets/cro.js'), files.join());
+  for (const f of files) assert.doesNotMatch(read(f), /vread|github\.com\/VREAD|c[oó]digo[ -]fonte/i, f);
+  assert.deepEqual(HOSTS, ['venda.jalonel.com']);
+});
+
 test('every page loads cro.js (classic script, same backend and hosts as mesure.js, before mesure.js and app.js)', () => {
   assert.ok(PAGES.includes('index.html') && PAGES.includes('privacidade.html'));
   for (const f of PAGES) {

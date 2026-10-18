@@ -239,7 +239,7 @@ wl.addEventListener('submit', async (ev) => {
     wl.reset();
   } catch (e) {
     msg.classList.add('err');
-    msg.textContent = 'Não deu certo agora. Tente de novo em instantes ou escreva para octave@vread.fr.';
+    msg.textContent = 'Não deu certo agora. Tente de novo em instantes ou escreva para contact@jalonel.com.';
   } finally { btn.disabled = false; }
 });
 

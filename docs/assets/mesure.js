@@ -1,7 +1,7 @@
 /*! Venda no Azul: contagem anônima. Sem cookie, sem identificador, sem IP guardado; respeita Do Not Track e GPC. */
 ((n,l,d)=>{var A='https://script.google.com/macros/s/AKfycbyE7sl55i4q5RYcyacG13y6GDu1vf_eR2_1vUKKq-oSculAtpdYgr6rTJ73kMLWkRth/exec',q=new URLSearchParams(l.search),b,k,x='',s,go;
 window.VNA_API=A;window.vnaTrack=function(){};
-if(n.doNotTrack=='1'||n.globalPrivacyControl||['venda.jalonel.com','outils.vread.fr','vendanoazul.github.io'].indexOf(l.hostname)<0)return;
+if(n.doNotTrack=='1'||n.globalPrivacyControl||['venda.jalonel.com'].indexOf(l.hostname)<0)return;
 // Not a visit (counted apart, by reason): our tests (?octave_notrack=1, remembered here; =0 clears), automated browsers, crawlers. The user agent is read here, never sent.
 try{s=localStorage;if(q.has('octave_notrack'))q.get('octave_notrack')=='1'?s.setItem('octave_notrack','1'):s.removeItem('octave_notrack');if(s.getItem('octave_notrack')=='1')x='notrack'}catch(e){}
 if(!x&&q.get('octave_notrack')=='1')x='notrack';
