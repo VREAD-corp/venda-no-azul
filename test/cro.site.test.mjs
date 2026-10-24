@@ -88,3 +88,14 @@ test('Apps Script: own host only, no reading-site mention, every e-mail (if any)
     for (const call of s.match(/(MailApp|GmailApp)\.send\w*\([^;]*/g) || []) assert.match(call, /replyTo: *'contact@jalonel\.com'/, call);
   }
 });
+
+test('paused since 2026-10-24: one robots tag (noindex) and the banner on every page, waitlist closed', () => {
+  for (const f of ['index.html', 'privacidade.html']) {
+    const h = fs.readFileSync(new URL('../docs/' + f, import.meta.url), 'utf8');
+    assert.deepEqual(h.match(/<meta name="robots"[^>]*>/g), ['<meta name="robots" content="noindex">'], f);
+    assert.match(h, /<div class="jal-pause" role="note"><p>Este serviço está em pausa\./, f);
+  }
+  const idx = fs.readFileSync(new URL('../docs/index.html', import.meta.url), 'utf8');
+  assert.match(idx, /<form id="wlForm"[^>]*data-paused="1"/);
+  assert.match(idx, /<fieldset class="paused-fs" disabled>/);
+});

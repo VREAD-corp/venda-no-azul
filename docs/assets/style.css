@@ -169,3 +169,12 @@ details p { margin: .5em 0 0; color: var(--ink-2); }
 footer { border-top: 1px solid var(--line); padding: 22px 0 90px; font-size: .86rem; color: var(--ink-2); }
 footer p { margin: .3em 0; }
 @media (min-width: 960px) { footer { padding-bottom: 28px; } }
+
+/* Em pausa desde 2026-10-24 */
+.jal-pause { background: #f1f1ee; border-bottom: 1px solid #cfcfc8; color: #1a1f24; font-size: .95rem; padding: .6rem 1rem; text-align: center; }
+.jal-pause p { margin: 0; }
+.jal-pause a { color: inherit; text-decoration: underline; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .jal-pause { background: #23282d; border-bottom-color: #3a4148; color: #e8eaed; } }
+:root[data-theme="dark"] .jal-pause { background: #23282d; border-bottom-color: #3a4148; color: #e8eaed; }
+.paused-note { font-weight: 600; }
+.paused-fs { border: 0; margin: 0; padding: 0; min-width: 0; }

@@ -1,5 +1,7 @@
 # Venda no Azul
 
+**Paused since 24/10/2026** (founders' decision, Jalonel refocus): noindex, banner, requests closed; tracking kept.
+
 A free price and margin calculator for Mercado Livre and Shopee sellers in Brazil (2026 fee tables, MEI / Simples Nacional, 2027 CBS/IBS scenario), with a downloadable .xlsx "planilha" that keeps live formulas. It is a Jalonel brand site operated by READ FRANCE SAS (Paris) and built and maintained by Octave, the company's AI agent. Venture SA-BR-03 in `octave-global-ventures`.
 
 - Live: https://venda.jalonel.com/ (brand Jalonel, a brand of READ FRANCE SAS; GitHub Pages custom domain, `docs/CNAME`). The old URLs redirect there (301). Contact: contact@jalonel.com. `mesure.js`, `cro.js` (`data-hosts`) and the backend's `OWN_HOSTS_` accept only `venda.jalonel.com`; `docs/assets/cro.js` is vendored byte-identical from octave-checkout `gas/web/jalonel/cro.js` (Jalonel copy, no default host; `test/cro.check.mjs` is its Jalonel check).

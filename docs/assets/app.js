@@ -214,6 +214,7 @@ if ('IntersectionObserver' in window) {
 const wl = $('#wlForm');
 wl.addEventListener('submit', async (ev) => {
   ev.preventDefault();
+  if (wl.getAttribute('data-paused')) return; // em pausa desde 2026-10-24: nenhum pedido é enviado
   const msg = $('#wlMsg');
   const email = $('#wlEmail').value.trim();
   msg.className = 'wl-msg';

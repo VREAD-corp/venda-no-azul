@@ -6,7 +6,7 @@
 <title>Calculadora Mercado Livre e Shopee 2026: preço e margem | Venda no Azul</title>
 <meta name="description" content="Calcule o preço mínimo e o preço com margem no Mercado Livre (Clássico e Premium) e na Shopee com as tarifas oficiais de 2026, o imposto do MEI ou do Simples e o cenário da CBS em 2027. Planilha de precificação grátis, sem cadastro.">
 <link rel="canonical" href="https://venda.jalonel.com/">
-<meta name="robots" content="index,follow">
+<meta name="robots" content="noindex">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Venda no Azul">
@@ -54,6 +54,7 @@
 </head>
 <body>
 <a class="skip" href="#calculadora">Ir para a calculadora</a>
+<div class="jal-pause" role="note"><p>Este serviço está em pausa. Outras ferramentas: <a href="https://jalonel.com/en/">jalonel.com</a></p></div>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="./" aria-label="Venda no Azul, início">
@@ -346,7 +347,9 @@
           <div class="q" style="margin-top:6px">Exemplo ilustrativo de rascunho. A resposta real usa os dados do seu anúncio.</div>
         </div>
       </div>
-      <form id="wlForm" novalidate data-testid="waitlist">
+      <form id="wlForm" novalidate data-testid="waitlist" data-paused="1">
+        <p class="paused-note">Novos pedidos estão fechados durante a pausa.</p>
+        <fieldset class="paused-fs" disabled>
         <div class="field">
           <label for="wlEmail">Seu e-mail</label>
           <div class="box"><input id="wlEmail" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="voce@exemplo.com.br" data-testid="wl-email"></div>
@@ -364,6 +367,7 @@
         <div class="hp" aria-hidden="true"><label>Não preencha <input name="website" tabindex="-1" autocomplete="off"></label></div>
         <label class="check"><input type="checkbox" id="wlConsent" name="consent" required data-testid="wl-consent"> <span>Concordo que a READ FRANCE SAS (Paris, França), controladora dos dados, guarde meu e-mail e as respostas acima só para avisar quando o teste abrir e pedir minha opinião sobre a ferramenta. Posso pedir acesso ou exclusão a qualquer momento em <a href="mailto:contact@jalonel.com">contact@jalonel.com</a>. Veja a <a href="privacidade.html">política de privacidade</a>.</span></label>
         <button class="btn primary" type="submit" style="width:100%" data-testid="wl-submit">Entrar na lista de espera (grátis)</button>
+        </fieldset>
         <p class="wl-msg" id="wlMsg" role="status" data-testid="wl-msg"></p>
       </form>
     </div>

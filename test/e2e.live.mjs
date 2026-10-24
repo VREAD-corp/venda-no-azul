@@ -100,14 +100,9 @@ for (const [w, h, tag] of [[390, 844, 'mobile'], [1440, 900, 'desktop']]) {
   const wa = await p.getAttribute('[data-testid=whatsapp]', 'href');
   check(`[${tag}] WhatsApp link`, wa.startsWith('https://wa.me/?text=') && decodeURIComponent(wa).includes('60,08'));
 
-  // Waitlist (real POST to the Sheet)
+  // Waitlist: paused since 2026-10-24, the form is closed and nothing is sent
   await p.locator('#lista-ia').scrollIntoViewIfNeeded(); await p.waitForTimeout(600);
-  await p.fill('[data-testid=wl-email]', `e2e+${tag}-${Date.now()}@vendanoazul.test`);
-  await p.check('[data-testid=wl-consent]');
-  await p.click('[data-testid=wl-submit]');
-  await p.waitForFunction(() => !/Enviando/.test(document.querySelector('#wlMsg').textContent), null, { timeout: 30000 }).catch(() => {});
-  const msg = await p.locator('[data-testid=wl-msg]').innerText();
-  check(`[${tag}] waitlist posts to the Sheet`, /Pronto/.test(msg) ? true : before ? false : null, msg);
+  check(`[${tag}] waitlist closed while paused`, await p.locator('[data-testid=wl-email]').isDisabled() && await p.locator('[data-testid=wl-submit]').isDisabled());
   await p.locator('#lista-ia').screenshot({ path: join(OUT, `${tag}-waitlist.png`) });
   await p.screenshot({ path: join(OUT, `${tag}-full.png`), fullPage: true });
   check(`[${tag}] tracking requests sent (view, calc, downloads, copy)`, ['view', 'calc', 'download_xlsx', 'download_csv', 'copy'].every((e) => trackPosts.includes(e)), trackPosts.join(','));
@@ -123,8 +118,8 @@ await new Promise((r) => setTimeout(r, 6000));
 const after = await stats();
 if (before && after) {
   const pg = '/';
-  for (const ev of ['view', 'calc', 'download_xlsx', 'download_csv', 'copy', 'waitlist_signup']) check(`excluded (notrack) counter increments: ${ev}`, count(after, pg, ev) > count(before, pg, ev), `${count(before, pg, ev)} -> ${count(after, pg, ev)}`);
-  check('waitlist rows increased by 2', after.waitlist_total - before.waitlist_total === 2, `${before.waitlist_total} -> ${after.waitlist_total}`);
+  for (const ev of ['view', 'calc', 'download_xlsx', 'download_csv', 'copy']) check(`excluded (notrack) counter increments: ${ev}`, count(after, pg, ev) > count(before, pg, ev), `${count(before, pg, ev)} -> ${count(after, pg, ev)}`);
+  check('waitlist rows unchanged (paused)', after.waitlist_total === before.waitlist_total, `${before.waitlist_total} -> ${after.waitlist_total}`);
 } else check('tracking increments in the Sheet', null, 'pending owner consent of the Apps Script web app');
 
 writeFileSync(join(OUT, 'results.json'), JSON.stringify(results, null, 1));
